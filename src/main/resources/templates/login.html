@@ -1,0 +1,69 @@
+<th:block th:replace="~{base :: layout(~{::title}, ~{::extra_css}, ~{::content}, ~{::extra_js})}"
+          xmlns:th="http://www.w3.org/1999/xhtml">
+    <th:block th:fragment="title">
+        <title>Log In - MyBank</title>
+    </th:block>
+
+    <th:block th:fragment="extra_css">
+        <link rel="stylesheet" th:href="@{/login/login.css}">
+    </th:block>
+
+    <th:block th:fragment="content">
+
+<div class="auth-container">
+    <!-- Show Login Form -->
+    <div class="form-container login-form" th:if="${not showRegisterForm}">
+        <h2>Login</h2>
+        <form id="loginForm" th:action="@{/login}" method="post">
+            <div class="input-group">
+                <label for="loginEmail">Email</label>
+                <input type="email" id="loginEmail" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="cta-button">Log In</button>
+        </form>
+        <p>Don't have an account? <a th:href="@{/toggle_register}">Register here</a></p>
+
+        <div th:if="${error}" style="color: #D9534F; font-weight: bold;">
+            <p th:text="${error}"></p>
+        </div>
+
+
+    </div>
+
+    <!-- Show Register Form -->
+    <div class="form-container register-form" th:if="${showRegisterForm}">
+        <h2>Register</h2>
+        <form id="registerForm" th:action="@{/register}" method="post">
+            <div class="input-group">
+                <label for="registerEmail">Email</label>
+                <input type="email" id="registerEmail" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-group">
+                <label for="registerPassword">Password</label>
+                <input type="password" id="registerPassword" name="password" placeholder="Create a password" required>
+            </div>
+            <div class="input-group">
+                <label for="registerConfirmPassword">Confirm Password</label>
+                <input type="password" id="registerConfirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+            </div>
+            <button type="submit" class="cta-button">Register</button>
+        </form>
+        <p>Already have an account? <a th:href="@{/toggle_login}">Login here</a></p>
+
+        <div th:if="${error}" style="color: #D9534F; font-weight: bold;">
+            <p th:text="${error}"></p>
+        </div>
+
+    </div>
+</div>
+    </th:block>
+
+    <th:block th:fragment="extra_js">
+        <script th:src="@{/login/login.js}"></script>
+    </th:block>
+
+</th:block>

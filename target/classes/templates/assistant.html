@@ -1,0 +1,45 @@
+<th:block th:replace="~{base :: layout(~{::title}, ~{::extra_css}, ~{::content}, ~{::extra_js})}"
+          xmlns:th="http://www.w3.org/1999/xhtml">
+    <th:block th:fragment="title">
+        <title>Assistant - MyBank</title>
+    </th:block>
+
+    <th:block th:fragment="extra_css">
+        <link rel="stylesheet" th:href="@{/assistant/assistant.css}">
+    </th:block>
+
+    <th:block th:fragment="content">
+    <div class="chat-container">
+        <div class="hot-topics">
+            <div class="topic-card">
+                <h3>Lost Credit Card</h3>
+                <p>Immediately block your card if lost or stolen. Request replacement online.</p>
+            </div>
+            <div class="topic-card">
+                <h3>Forgot Password</h3>
+                <p>Reset your online banking password securely using SMS verification.</p>
+            </div>
+            <div class="topic-card">
+                <h3>Fraud Alert</h3>
+                <p>Learn how to recognize and report suspicious transactions in your account.</p>
+            </div>
+        </div>
+
+        <div class="chat-interface">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message ai-message">Dear Customer, I am MyBank's AI Assistant. How can I help you today? </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" placeholder="Type your question here..." id="userInput">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+    </th:block>
+
+    <th:block th:fragment="extra_js">
+        <script th:src="@{/assistant/assistant.js}"></script>
+    </th:block>
+
+</th:block>
+

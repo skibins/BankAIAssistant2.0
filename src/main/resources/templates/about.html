@@ -1,0 +1,58 @@
+<th:block th:replace="~{base :: layout(~{::title}, ~{::extra_css}, ~{::content}, ~{::extra_js})}"
+          xmlns:th="http://www.w3.org/1999/xhtml">
+    <th:block th:fragment="title">
+        <title>About - MyBank</title>
+    </th:block>
+
+    <th:block th:fragment="extra_css">
+        <link rel="stylesheet" th:href="@{/about/about.css}">
+    </th:block>
+
+    <th:block th:fragment="content">
+    <div class="about-container">
+        <h1 class="about-header">About Us</h1>
+        <p class="about-description">
+            At MyBank, we are committed to providing innovative banking solutions that empower our customers.
+            With years of experience in the financial sector, we offer secure, efficient, and customer-focused
+            services tailored to your needs.
+        </p>
+
+        <div class="team-section">
+            <h2 class="team-header">Meet Our Team</h2>
+            <div class="team-members">
+                <div class="team-member">
+                    <img th:src="@{/assets/team/cfo.png}" alt="CFO">
+                    <h3 th:text="${session.user_email != null && session.user_email.split('@')[0] == 'sebastian' ? 'Sebastian Paszek' : 'Sebastian Paszek'}"
+                        th:style="${session.user_email != null && session.user_email.split('@')[0] == 'sebastian' ? 'color: #ff9100;' : ''}"></h3>
+                    <p>Chief Financial Officer</p>
+                </div>
+                <div class="team-member">
+                    <img th:src="@{/assets/team/ceo.png}" alt="CEO">
+                    <h3 th:text="${session.user_email != null && session.user_email.split('@')[0] == 'ja' ? 'Ja Ski' : 'Ja Ski'}"
+                        th:style="${session.user_email != null && session.user_email.split('@')[0] == 'ja' ? 'color: #ff9100;' : ''}"></h3>
+                    <p>Chief Executive Officer</p>
+                </div>
+                <div class="team-member">
+                    <img th:src="@{/assets/team/cto.jpeg}" alt="CTO">
+                    <h3 th:text="${session.user_email != null && session.user_email.split('@')[0] == 'michal' ? 'Michal Bujok' : 'Michal Bujok'}"
+                        th:style="${session.user_email != null && session.user_email.split('@')[0] == 'michal' ? 'color: #ff9100;' : ''}"></h3>
+                    <p>Chief Technology Officer</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="mission-section">
+            <h2 class="mission-header">Our Mission</h2>
+            <p>
+                Our mission is to redefine banking by integrating advanced technology with personalized customer service.
+                We strive to make financial services accessible, transparent, and seamless for everyone.
+            </p>
+        </div>
+    </div>
+    </th:block>
+
+    <th:block th:fragment="extra_js">
+        <script th:src="@{/about/about.js}"></script>
+    </th:block>
+
+</th:block>

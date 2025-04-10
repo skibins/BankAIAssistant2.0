@@ -1,0 +1,12 @@
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    background: linear-gradient(to top, #6C7D8C 20%, rgba(108, 125, 140, 0));
+    color: rgba(0, 0, 0, 0.9);
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    flex-shrink: 1;
+}

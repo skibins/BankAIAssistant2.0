@@ -1,0 +1,54 @@
+{
+  "users" : [ {
+    "email" : "ja@s.ki",
+    "password" : "qwerty",
+    "topics" : [ {
+      "title" : "Artificial Intelligence",
+      "description" : "Discussion on AI advancements and applications."
+    }, {
+      "title" : "Cloud Computing",
+      "description" : "Exploring cloud services, architectures, and best practices."
+    }, {
+      "title" : "Software Development",
+      "description" : "Best coding practices, frameworks, and tools for modern development."
+    } ]
+  }, {
+    "email" : "michal@example.com",
+    "password" : "strongPass456",
+    "topics" : [ {
+      "title" : "Cybersecurity",
+      "description" : "Latest trends and security measures to protect digital assets."
+    }, {
+      "title" : "Game Development",
+      "description" : "Creating interactive experiences using various game engines."
+    }, {
+      "title" : "Data Science",
+      "description" : "Analyzing data using machine learning and statistical methods."
+    } ]
+  }, {
+    "email" : "sebastian@example.com",
+    "password" : "randomPass789",
+    "topics" : [ {
+      "title" : "Blockchain Technology",
+      "description" : "Decentralized systems and their impact on industries."
+    }, {
+      "title" : "Networking",
+      "description" : "Understanding protocols, configurations, and network security."
+    }, {
+      "title" : "Embedded Systems",
+      "description" : "Development of low-level software for hardware devices."
+    } ]
+  }, {
+    "password" : "1234",
+    "topics" : [ ],
+    "email" : "testowyUser@mail.com"
+  }, {
+    "password" : "1234",
+    "topics" : [ ],
+    "email" : "newtester1@1.com"
+  }, {
+    "password" : "123",
+    "topics" : [ ],
+    "email" : "123test@t.tt"
+  } ]
+}

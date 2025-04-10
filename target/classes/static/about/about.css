@@ -1,0 +1,122 @@
+/* Header */
+.about-header {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2C3E50;
+    margin: 4rem 0;
+}
+
+/* About description */
+.about-description {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* Team section */
+.team-section {
+    margin-top: 4rem;
+}
+
+.team-header {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2C3E50;
+    margin-bottom: 2rem;
+}
+
+.team-members {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    justify-items: center;
+}
+
+.team-member {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    max-width: 250px;
+    min-height: 300px;
+}
+
+/* Team member hover effect */
+.team-member:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Team member images */
+.team-member img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+/* Team member text */
+.team-member h3 {
+    font-size: 1.3rem;
+    color: #2C3E50;
+    margin-bottom: 0.5rem;
+}
+
+.team-member p {
+    font-size: 1rem;
+    color: #7F8C8D;
+}
+
+/* Mission section */
+.mission-section {
+    text-align: center;
+    margin-top: 4rem;
+    background-color: #ffffff;
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 100px;
+}
+
+.mission-header {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #2C3E50;
+    margin-bottom: 1rem;
+}
+
+.mission-section p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .team-members {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .team-members {
+        grid-template-columns: 1fr; /* 1 column for small screens */
+    }
+
+    .team-header,
+    .mission-header {
+        font-size: 1.8rem;
+    }
+
+    .about-header {
+        font-size: 2rem;
+    }
+}

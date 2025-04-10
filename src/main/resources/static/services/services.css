@@ -1,0 +1,77 @@
+/* Header styles */
+.services-header {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2C3E50;
+    margin: 4rem 0;
+    padding-top: 4.5rem;
+}
+
+/* Services container styles */
+.services-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    gap: 2rem;
+    justify-items: center;
+    margin-top: 30px;
+    margin-bottom: 100px;
+}
+
+/* Individual service styles */
+.service {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    max-width: 350px;
+    min-height: 230px;
+    cursor: pointer;
+}
+
+/* Service hover effect */
+.service:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Service icon styles */
+.service img {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1.5rem;
+}
+
+/* Service title and description styles */
+.service h2 {
+    font-size: 1.5rem;
+    color: #2C3E50;
+    margin-bottom: 1rem;
+}
+
+.service p {
+    font-size: 1rem;
+    color: #7F8C8D;
+    line-height: 1.4;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+    .services-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .services-header {
+        display: none; /* remove text to save space */
+    }
+
+    .services-container {
+        grid-template-columns: 1fr; /* 1 column for small screens */
+    }
+
+}

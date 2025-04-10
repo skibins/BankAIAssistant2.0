@@ -1,0 +1,50 @@
+<th:block th:replace="~{base :: layout(~{::title}, ~{::extra_css}, ~{::content}, ~{::extra_js})}"
+          xmlns:th="http://www.w3.org/1999/xhtml">
+    <th:block th:fragment="title">
+        <title>Home - MyBank</title>
+    </th:block>
+
+    <th:block th:fragment="extra_css">
+        <link rel="stylesheet" th:href="@{/main/main.css}">
+    </th:block>
+
+    <th:block th:fragment="content">
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Smart & Secure Banking</h2>
+                <p>Experience a new way of banking with innovative solutions tailored just for you.</p>
+                <div th:if="${session.user_email}">
+                    <a th:href="@{/assistant}">
+                        <button class="cta-button">
+                            Hello
+                            <span th:text="${#strings.capitalize(session.user_email.split('@')[0])}">User</span>!
+                            Contact our AI Assistant
+                        </button>
+                    </a>
+                </div>
+                <div th:unless="${session.user_email}">
+                    <button class="cta-button" style="background-color: IndianRed; cursor: default;">🔒 Log in to use our AI Assistant</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature">
+                <h3>Fast Transactions</h3>
+                <p>Enjoy seamless and quick transactions worldwide.</p>
+            </div>
+            <div class="feature">
+                <h3>24/7 Support</h3>
+                <p>Our dedicated team is available anytime to assist you.</p>
+            </div>
+            <div class="feature">
+                <h3>Top Security</h3>
+                <p>Your funds and data are protected with the latest technology.</p>
+            </div>
+        </section>
+    </th:block>
+
+    <th:block th:fragment="extra_js">
+        <script th:src="@{/main/main.js}"></script>
+    </th:block>
+</th:block>

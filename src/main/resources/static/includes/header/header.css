@@ -1,0 +1,93 @@
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, #6C7D8C 20%, rgba(108, 125, 140, 0));
+    color: rgba(0, 0, 0, 0.9);
+    padding: 20px 10%;
+    position: relative;
+
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Navigation */
+nav {
+    padding: 15px 30px; /* Inner padding */
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center; /* Center align items */
+    align-items: center;
+    gap: 25px; /* Larger gap between links */
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out; /* Smooth transitions */
+    position: relative;
+}
+
+/* Hover underline effect */
+nav ul li a::after {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 0;
+    background: #2C3E50;
+    transition: width 0.3s ease-in-out;
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 3px;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+/* Hover effect */
+nav ul li a:hover {
+    color: #f9f9f9;
+    background: rgba(44, 62, 80, 0.3); /* Subtle background highlight */
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    nav {
+        padding: 10px 20px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+

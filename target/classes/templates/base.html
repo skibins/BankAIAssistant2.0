@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:fragment="layout(title, extra_css, content, extra_js)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:replace="${title} ?: 'MyBank'"></title>
+    <link rel="stylesheet" th:href="@{/includes/header/header.css}">
+    <link rel="stylesheet" th:href="@{/includes/footer/footer.css}">
+    <link rel="stylesheet" th:href="@{/global/global.css}">
+    <th:block th:replace="${extra_css}"></th:block>
+</head>
+<body>
+<div th:replace="~{includes/header :: header}"></div>
+
+<main id="content">
+    <th:block th:replace="${content}"></th:block>
+</main>
+
+<div th:replace="~{includes/footer :: footer}"></div>
+
+<th:block th:replace="${extra_js}"></th:block>
+
+<script th:src="@{/includes/header/header.js}"></script>
+</body>
+</html>

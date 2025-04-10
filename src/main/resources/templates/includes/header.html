@@ -1,0 +1,21 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<header>
+    <div class="logo">
+        <img th:src="@{/assets/logo.png}" alt="MyBank Logo">
+        <h1>MyBank</h1>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="#" id="homeButton">Home</a></li>
+            <li><a href="#" id="servicesButton">Services</a></li>
+            <li><a href="#" id="aboutButton">About Us</a></li>
+
+            <li th:if="${session.user_email}">
+                <a href="/logout" id="logoutButton" style="color: #f9f9f9;">Log out</a>
+            </li>
+            <li th:unless="${session.user_email}">
+                <a href="#" id="loginButton">Login</a>
+            </li>
+        </ul>
+    </nav>
+</header>

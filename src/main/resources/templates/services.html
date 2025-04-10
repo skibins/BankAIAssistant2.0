@@ -1,0 +1,45 @@
+<th:block th:replace="~{base :: layout(~{::title}, ~{::extra_css}, ~{::content}, ~{::extra_js})}"
+          xmlns:th="http://www.w3.org/1999/xhtml">
+    <th:block th:fragment="title">
+        <title>Services - MyBank</title>
+    </th:block>
+
+    <th:block th:fragment="extra_css">
+        <link rel="stylesheet" th:href="@{/services/services.css}">
+    </th:block>
+
+    <th:block th:fragment="content">
+    <div class="services-container">
+        <div class="service">
+            <img th:src="@{/assets/icons/credit-card.png}" alt="Credit Cards">
+            <h2>Credit Cards</h2>
+            <p>We offer a variety of credit cards with different benefits and rewards.</p>
+        </div>
+        <h1 class="services-header">Our Services</h1>
+        <div class="service">
+            <img th:src="@{/assets/icons/bank.png}" alt="Loans">
+            <h2>Loans</h2>
+            <p>We provide personal, mortgage, and business loans with competitive interest rates.</p>
+        </div>
+        <div class="service">
+            <img th:src="@{/assets/icons/bank-transfer.png}" alt="Investments">
+            <h2>Investments</h2>
+            <p>We offer various investment options, including stocks, bonds, and mutual funds.</p>
+        </div>
+        <div class="service">
+            <img th:src="@{/assets/icons/bank-account.png}" alt="Insurance">
+            <h2>Insurance</h2>
+            <p>We provide life, health, and property insurance to protect your assets.</p>
+        </div>
+        <div class="service">
+            <img th:src="@{/assets/icons/piggy-bank.png}" alt="Savings">
+            <h2>Savings Accounts</h2>
+            <p>Earn interest with our high-yield savings accounts designed for your financial goals.</p>
+        </div>
+    </div>
+    </th:block>
+
+    <th:block th:fragment="extra_js">
+        <script th:src="@{/services/services.js}"></script>
+    </th:block>
+</th:block>
