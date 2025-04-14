@@ -13,8 +13,8 @@
       "description" : "Best coding practices, frameworks, and tools for modern development."
     } ]
   }, {
-    "email" : "michal@example.com",
-    "password" : "strongPass456",
+    "email" : "cody@example.com",
+    "password" : "qwerty",
     "topics" : [ {
       "title" : "Cybersecurity",
       "description" : "Latest trends and security measures to protect digital assets."
@@ -26,8 +26,8 @@
       "description" : "Analyzing data using machine learning and statistical methods."
     } ]
   }, {
-    "email" : "sebastian@example.com",
-    "password" : "randomPass789",
+    "email" : "john@example.com",
+    "password" : "randomPass123",
     "topics" : [ {
       "title" : "Blockchain Technology",
       "description" : "Decentralized systems and their impact on industries."
@@ -38,17 +38,5 @@
       "title" : "Embedded Systems",
       "description" : "Development of low-level software for hardware devices."
     } ]
-  }, {
-    "password" : "1234",
-    "topics" : [ ],
-    "email" : "testowyUser@mail.com"
-  }, {
-    "password" : "1234",
-    "topics" : [ ],
-    "email" : "newtester1@1.com"
-  }, {
-    "password" : "123",
-    "topics" : [ ],
-    "email" : "123test@t.tt"
   } ]
 }

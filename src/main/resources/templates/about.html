@@ -22,8 +22,8 @@
             <div class="team-members">
                 <div class="team-member">
                     <img th:src="@{/assets/team/cfo.png}" alt="CFO">
-                    <h3 th:text="${session.user_email != null && session.user_email.split('@')[0] == 'sebastian' ? 'Sebastian Paszek' : 'Sebastian Paszek'}"
-                        th:style="${session.user_email != null && session.user_email.split('@')[0] == 'sebastian' ? 'color: #ff9100;' : ''}"></h3>
+                    <h3 th:text="${session.user_email != null && session.user_email.split('@')[0] == 'john' ? 'John Doe' : 'John Doe'}"
+                        th:style="${session.user_email != null && session.user_email.split('@')[0] == 'john' ? 'color: #ff9100;' : ''}"></h3>
                     <p>Chief Financial Officer</p>
                 </div>
                 <div class="team-member">
@@ -34,8 +34,8 @@
                 </div>
                 <div class="team-member">
                     <img th:src="@{/assets/team/cto.jpeg}" alt="CTO">
-                    <h3 th:text="${session.user_email != null && session.user_email.split('@')[0] == 'michal' ? 'Michal Bujok' : 'Michal Bujok'}"
-                        th:style="${session.user_email != null && session.user_email.split('@')[0] == 'michal' ? 'color: #ff9100;' : ''}"></h3>
+                    <h3 th:text="${session.user_email != null && session.user_email.split('@')[0] == 'cody' ? 'Cody Bard' : 'Cody Bard'}"
+                        th:style="${session.user_email != null && session.user_email.split('@')[0] == 'cody' ? 'color: #ff9100;' : ''}"></h3>
                     <p>Chief Technology Officer</p>
                 </div>
             </div>

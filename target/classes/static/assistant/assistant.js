@@ -34,6 +34,9 @@ function sendMessage() {
 
         // Clear the input field after sending
         inputField.value = '';
+
+        // Push new topic to the carousel
+        rotateTopics();
     }
 }
 
@@ -58,3 +61,43 @@ inputField.addEventListener("keydown", (event) => {
         sendMessage();  // Call the sendMessage function
     }
 });
+
+// Sample new cards that can appear at the bottom
+const newTopics = [
+    { title: "Update Address", text: "Easily update your mailing address in your profile settings." },
+    { title: "Activate New Card", text: "Follow simple steps to activate your new debit or credit card." },
+    { title: "Transaction Dispute", text: "Learn how to dispute unauthorized charges quickly." },
+];
+
+// Hot topics carousel functionality
+
+function rotateTopics() {
+    const wrapper = document.querySelector('.cards-wrapper');
+    const cards = wrapper.querySelectorAll('.topic-card');
+
+    if (cards.length === 0) return;
+
+    const cardHeight = cards[0].offsetHeight + 20; // height + margin gap
+    wrapper.style.transform = `translateY(-${cardHeight}px)`;
+
+    // Wait for animation to finish
+    setTimeout(() => {
+        // Move first card to end
+        const firstCard = cards[0];
+        wrapper.appendChild(firstCard);
+        wrapper.style.transition = 'none';
+        wrapper.style.transform = 'translateY(0)';
+
+        // Force reflow to apply the "no-transition" state
+        void wrapper.offsetWidth;
+
+        // Re-enable transition
+        wrapper.style.transition = 'transform 0.5s ease-in-out';
+
+        // Update last card with new random content
+        const lastCard = wrapper.lastElementChild;
+        const newTopic = newTopics[Math.floor(Math.random() * newTopics.length)];
+        lastCard.querySelector('h3').textContent = newTopic.title;
+        lastCard.querySelector('p').textContent = newTopic.text;
+    }, 500);
+}
