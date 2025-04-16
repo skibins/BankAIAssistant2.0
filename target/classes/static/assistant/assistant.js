@@ -3,8 +3,8 @@ const chatContainer = document.getElementById("chatMessages");
 const inputField = document.getElementById("userInput");
 
 // Function to handle sending the message
-function sendMessage() {
-    const message = inputField.value.trim();
+function sendMessage(messageText) {
+    const message = messageText || inputField.value.trim();
 
     if (message) {
         // Display the user's message in the chat
@@ -70,7 +70,6 @@ const newTopics = [
 ];
 
 // Hot topics carousel functionality
-
 function rotateTopics() {
     const wrapper = document.querySelector('.cards-wrapper');
     const cards = wrapper.querySelectorAll('.topic-card');
@@ -97,7 +96,36 @@ function rotateTopics() {
         // Update last card with new random content
         const lastCard = wrapper.lastElementChild;
         const newTopic = newTopics[Math.floor(Math.random() * newTopics.length)];
+
         lastCard.querySelector('h3').textContent = newTopic.title;
         lastCard.querySelector('p').textContent = newTopic.text;
+
+        // Update data attributes to reflect the new topic
+        lastCard.setAttribute('data-title', newTopic.title);
+        lastCard.setAttribute('data-description', newTopic.text);
     }, 500);
+
+    attachTopicCardListeners();
 }
+
+// Enables communication with Gemini after clicking at the 'hot topic' card
+function attachTopicCardListeners() {
+    const topicCards = document.querySelectorAll(".topic-card");
+    topicCards.forEach(card => {
+        card.removeEventListener("click", topicCardClickHandler);
+        card.addEventListener("click", topicCardClickHandler);
+    });
+}
+
+function topicCardClickHandler(event) {
+    const card = event.currentTarget;
+    const title = card.getAttribute("data-title");
+    const description = card.getAttribute("data-description");
+    const message = `How to: ${title}, ${description}`;
+    sendMessage(message);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    attachTopicCardListeners();
+});
+

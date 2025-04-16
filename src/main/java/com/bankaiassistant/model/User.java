@@ -3,59 +3,30 @@ package com.bankaiassistant.model;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
+
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.*;
 
 public class User {
     private String email;
     private String password;
-    private List<String> topics;
+    private List<Map<String, String>> topics;
 
-    public User(String email, String password, List<String> topics) {
+    public User(String email, String password, List<Map<String, String>> topics) {
         this.email = email;
         this.password = password;
         this.topics = topics == null ? new ArrayList<>() : topics;
     }
 
-    // Getters and setters
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public List<String> getTopics() {
-        return topics;
-    }
-
-    public void setTopics(List<String> topics) {
-        this.topics = topics;
-    }
-
-    // Static Methods
-
+    // Static methods
     public static List<Map<String, Object>> loadData(String dataFilePath) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(new File(dataFilePath));
             JsonNode usersNode = root.get("users");
 
-            return mapper.convertValue(usersNode, new com.fasterxml.jackson.core.type.TypeReference<List<Map<String, Object>>>() {});
+            return mapper.convertValue(usersNode, new TypeReference<>() {});
         } catch (IOException e) {
             e.printStackTrace();
             return new ArrayList<>();
@@ -68,7 +39,6 @@ public class User {
         List<Map<String, Object>> users = new ArrayList<>();
 
         try {
-            // If file exists - get data
             if (file.exists()) {
                 Map<String, Object> data = mapper.readValue(file, new TypeReference<>() {});
                 Object usersObj = data.get("users");
@@ -78,19 +48,32 @@ public class User {
                 }
             }
 
-            // create a new user
+            // Default topics
+            List<Map<String, String>> defaultTopics = new ArrayList<>();
+            defaultTopics.add(Map.of(
+                    "title", "Lost Credit Card",
+                    "description", "Immediately block your card if lost or stolen. Request replacement online."
+            ));
+            defaultTopics.add(Map.of(
+                    "title", "Forgot Password",
+                    "description", "Reset your online banking password securely using SMS verification."
+            ));
+            defaultTopics.add(Map.of(
+                    "title", "Fraud Alert",
+                    "description", "Learn how to recognize and report suspicious transactions in your account."
+            ));
+
+            // New user
             Map<String, Object> newUser = new HashMap<>();
             newUser.put("email", email);
             newUser.put("password", password);
-            newUser.put("topics", new ArrayList<>()); // empty topics list
+            newUser.put("topics", defaultTopics);
 
-            users.add(newUser); // add to the list
-
-            // jsonify
-            Map<String, Object> updatedData = new HashMap<>();
-            updatedData.put("users", users);
+            users.add(newUser);
 
             // save to the file
+            Map<String, Object> updatedData = new HashMap<>();
+            updatedData.put("users", users);
             mapper.writerWithDefaultPrettyPrinter().writeValue(file, updatedData);
 
         } catch (IOException e) {
@@ -98,29 +81,20 @@ public class User {
         }
     }
 
-
     public static boolean isEmailTaken(String email, List<Map<String, Object>> users) {
         return users.stream().anyMatch(user -> user.get("email").equals(email));
     }
 
     public static boolean authenticate(String email, String password, List<Map<String, Object>> users) {
-        return users.stream()
-                .anyMatch(user -> user.get("email").equals(email) && user.get("password").equals(password));
+        return users.stream().anyMatch(user ->
+                user.get("email").equals(email) && user.get("password").equals(password)
+        );
     }
 
-
-    // Not static methods
-
-    public static boolean register(String email, String password, String confirmPassword, List<Map<String, Object>> users, String dataFilePath) {
-        if (isEmailTaken(email, users)) {
-            // Flash an error or handle accordingly
-            return false;
-        }
-
-        if (!password.equals(confirmPassword)) {
-            // Flash an error or handle accordingly
-            return false;
-        }
+    public static boolean register(String email, String password, String confirmPassword,
+                                   List<Map<String, Object>> users, String dataFilePath) {
+        if (isEmailTaken(email, users)) return false;
+        if (!password.equals(confirmPassword)) return false;
 
         saveData(email, password, dataFilePath);
         return true;
