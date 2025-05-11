@@ -66,7 +66,7 @@ This project was created as a personal learning exercise to:
 
 #### 1. Clone the repository
  ```bash
-git clone https://github.com/your-username/BankAIAssistant2.0.git
+git clone https://github.com/skibins/BankAIAssistant2.0.git
 cd BankAIAssistant2.0
 ```
 #### 2. Open in IntelliJ IDEA
