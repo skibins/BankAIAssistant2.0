@@ -2,43 +2,67 @@
 const chatContainer = document.getElementById("chatMessages");
 const inputField = document.getElementById("userInput");
 
-// Function to handle sending the message
-function sendMessage(messageText) {
+// Main function to send the message
+async function sendMessage(messageText) {
     const message = messageText || inputField.value.trim();
 
-    if (message) {
-        // Display the user's message in the chat
-        addMessage(message, 'user');
+    if (!message) return;
 
-        // Send the message to the backend API
-        fetch('/assistant/get_response', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: message }) // Sending user input in the expected format
-        })
-        .then(response => response.json())  // Parse JSON response from the server
-        .then(data => {
-            if (data.response) {
-                // Display the AI's response in the chat
-                addMessage(data.response, 'ai');
-            } else {
-                // Handle missing response gracefully
-                addMessage("Error: No response from server.", 'ai');
-            }
-        })
-        .catch(error => {
-            // Log and show error if the API call fails
-            console.error("Error:", error);
-            addMessage("Error: Unable to connect to AI.", 'ai');
-        });
+    addMessage(message, 'user');
 
-        // Clear the input field after sending
-        inputField.value = '';
+    // Clear the input field
+    inputField.value = '';
 
-        // Push new topic to the carousel
-        rotateTopics();
+    // Send the message to the AI chat
+    await sendChatMessage(message);
+
+    // Fetch a new topic and update the carousel
+    try {
+        const newTopic = await fetchNewTopic(message);
+        if (newTopic && newTopic.title && newTopic.text) {
+            rotateTopics(newTopic); // pass the new topic to the carousel rotation
+        }
+    } catch (error) {
+        console.error("Failed to fetch topic:", error);
     }
 }
+
+// Helper function – sends message to AI chat
+async function sendChatMessage(message) {
+    try {
+        const response = await fetch('/assistant/get_response', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message })
+        });
+
+        const data = await response.json();
+
+        if (data.response) {
+            addMessage(data.response, 'ai');
+        } else {
+            addMessage("Error: No response from server.", 'ai');
+        }
+    } catch (error) {
+        console.error("Chat API error:", error);
+        addMessage("Error: Unable to connect to AI.", 'ai');
+    }
+}
+
+// Helper function – fetches a new topic from the API
+async function fetchNewTopic(message) {
+    const response = await fetch('/assistant/get_topic', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message })
+    });
+
+    const data = await response.json();
+
+    // Expected structure: { title: "New Title", text: "New text" }
+    return data;
+}
+
 
 // Function to append messages to the chat container
 function addMessage(text, sender) {
@@ -62,15 +86,8 @@ inputField.addEventListener("keydown", (event) => {
     }
 });
 
-// Sample new cards that can appear at the bottom
-const newTopics = [
-    { title: "Update Address", text: "Easily update your mailing address in your profile settings." },
-    { title: "Activate New Card", text: "Follow simple steps to activate your new debit or credit card." },
-    { title: "Transaction Dispute", text: "Learn how to dispute unauthorized charges quickly." },
-];
-
 // Hot topics carousel functionality
-function rotateTopics() {
+function rotateTopics(newTopic) {
     const wrapper = document.querySelector('.cards-wrapper');
     const cards = wrapper.querySelectorAll('.topic-card');
 
@@ -95,7 +112,6 @@ function rotateTopics() {
 
         // Update last card with new random content
         const lastCard = wrapper.lastElementChild;
-        const newTopic = newTopics[Math.floor(Math.random() * newTopics.length)];
 
         lastCard.querySelector('h3').textContent = newTopic.title;
         lastCard.querySelector('p').textContent = newTopic.text;

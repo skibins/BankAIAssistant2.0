@@ -3,6 +3,7 @@ package com.bankaiassistant.model;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.File;
 import java.io.IOException;
@@ -78,6 +79,55 @@ public class User {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void updateTopic(String filePath, String email, int topicIndex, Map<String, String> newTopic) {
+        try {
+            // Load existing user data from file
+            ObjectMapper mapper = new ObjectMapper();
+            File file = new File(filePath);
+
+            if (!file.exists()) {
+                throw new IOException("Data file does not exist.");
+            }
+
+            JsonNode root = mapper.readTree(file);
+            JsonNode usersNode = root.get("users");
+
+            List<Map<String, Object>> users = mapper.convertValue(usersNode, new TypeReference<>() {});
+
+            // Find the user by email and update one of their topics
+            boolean userFound = false;
+            for (Map<String, Object> user : users) {
+                if (email.equals(user.get("email"))) {
+                    List<Map<String, String>> topics = (List<Map<String, String>>) user.get("topics");
+
+                    if (topics != null && topicIndex >= 0 && topicIndex < topics.size()) {
+                        topics.set(topicIndex, newTopic); // Replace the old topic with the new one
+                        userFound = true;
+                    }
+                    break;
+                }
+            }
+
+            if (!userFound) {
+                throw new IllegalArgumentException("User not found or user has no topics.");
+            }
+
+            // Replace the "users" node in the root JSON
+            ObjectNode updatedRoot = (ObjectNode) root;
+            updatedRoot.set("users", mapper.valueToTree(users));
+
+            // Save the updated JSON back to the file
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, updatedRoot);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Log the error and handle accordingly
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            // Log the error and handle accordingly
         }
     }
 

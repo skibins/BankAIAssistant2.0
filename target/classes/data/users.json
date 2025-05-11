@@ -3,8 +3,8 @@
     "email" : "ja@s.ki",
     "password" : "qwerty",
     "topics" : [ {
-      "title" : "Artificial Intelligence",
-      "description" : "Discussion on AI advancements and applications."
+      "title" : "MyBank Founders",
+      "text" : "You asked about the founders of MyBank. They are Janek, John Doe, and Cody Clean, who established the bank and shaped its services."
     }, {
       "title" : "Cloud Computing",
       "description" : "Exploring cloud services, architectures, and best practices."
@@ -38,18 +38,5 @@
       "title" : "Embedded Systems",
       "description" : "Development of low-level software for hardware devices."
     } ]
-  }, {
-    "password" : "12345",
-    "topics" : [ {
-      "description" : "Immediately block your card if lost or stolen. Request replacement online.",
-      "title" : "Lost Credit Card"
-    }, {
-      "description" : "Reset your online banking password securely using SMS verification.",
-      "title" : "Forgot Password"
-    }, {
-      "description" : "Learn how to recognize and report suspicious transactions in your account.",
-      "title" : "Fraud Alert"
-    } ],
-    "email" : "anonymous@test.com"
   } ]
 }

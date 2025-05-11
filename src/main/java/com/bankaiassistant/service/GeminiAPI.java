@@ -1,5 +1,8 @@
 package com.bankaiassistant.service;
 
+import com.bankaiassistant.service.Topic;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -7,6 +10,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.http.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class GeminiAPI {
@@ -76,6 +81,63 @@ public class GeminiAPI {
             }
         } catch (Exception e) {
             return "Error: " + e.getMessage();
+        }
+    }
+
+    public Topic generateTopic(String userInput) {
+        if (apiKey == null || apiKey.isEmpty()) {
+            return new Topic("API Error", "API key is missing.");
+        }
+
+        String prompt = "Based on the following input, suggest a related topic. " +
+                "Respond ONLY with a JSON object with two fields: " +
+                "\"title\" (2-3 words max) and \"text\" (2-3 sentences max). " +
+                "Input: " + userInput;
+
+        String responseText = sendRequestToGemini(prompt);
+
+        return extractTopicFromResponse(responseText);
+    }
+
+    private String sendRequestToGemini(String prompt) {
+        String requestBody = createRequestBody(prompt);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("x-goog-api-key", apiKey);
+        headers.set("Content-Type", "application/json");
+
+        HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
+
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(
+                    "https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent",
+                    HttpMethod.POST, entity, String.class
+            );
+            return parseResponse(response.getBody());
+        } catch (Exception e) {
+            return "Error: " + e.getMessage();
+        }
+    }
+
+    private Topic extractTopicFromResponse(String rawText) {
+        try {
+            Pattern pattern = Pattern.compile(
+                    "\\{\\s*\"title\"\\s*:\\s*\".*?\",\\s*\"text\"\\s*:\\s*\".*?\"\\s*\\}", Pattern.DOTALL);
+            Matcher matcher = pattern.matcher(rawText);
+
+            if (matcher.find()) {
+                String json = matcher.group();
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode jsonNode = mapper.readTree(json);
+
+                String title = jsonNode.has("title") ? jsonNode.get("title").asText() : "Untitled";
+                String text = jsonNode.has("text") ? jsonNode.get("text").asText() : "No description.";
+                return new Topic(title, text);
+            } else {
+                return new Topic("Parsing Error", "Could not extract JSON from Gemini response.");
+            }
+        } catch (Exception e) {
+            return new Topic("Error", "Exception while parsing: " + e.getMessage());
         }
     }
 
